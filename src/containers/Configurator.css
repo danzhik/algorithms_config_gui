@@ -1,0 +1,28 @@
+.configurator-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.image-types-header {
+    margin-bottom: 3vh;
+    padding-top: 3vh;
+}
+
+.algorithms-header {
+    padding-top: 5vh;
+}
+
+.form-check-label {
+    margin-left: 0.5rem;
+}
+
+.algorithms-form {
+    margin-bottom: 4vh;
+}
+
+input[type='checkbox'] {
+    height: 1.2rem;
+    width: 1.2rem;
+}

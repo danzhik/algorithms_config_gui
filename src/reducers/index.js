@@ -1,17 +1,17 @@
-import { ADD_FILE_TYPE, ADD_ALGORITHM, CREATE_CONFIGURATION, RESET_SELECTIONS_AND_CONFIGURATION } from "../actions/action_types";
+import { ADD_IMAGE_TYPE, ADD_ALGORITHM, CREATE_CONFIGURATION, RESET_SELECTIONS_AND_CONFIGURATION } from "../actions/action_types";
 
 const initialState = {
-    selectedFileTypes: [],
+    selectedImageTypes: [],
     selectedAlgorithms: [],
     configuration: {}
 };
 
 const appReducer = (state = initialState, action) => {
-    if (action.type === ADD_FILE_TYPE){
-        const { selectedFileTypes } = state;
-        selectedFileTypes.push(action.payload);
+    if (action.type === ADD_IMAGE_TYPE){
+        const { selectedImageTypes } = state;
+        selectedImageTypes.push(action.payload);
         return {...state,
-            selectedFileTypes: selectedFileTypes
+            selectedImageTypes: selectedImageTypes
         }
     }
 

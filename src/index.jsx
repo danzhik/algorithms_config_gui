@@ -9,7 +9,7 @@ import { StoreContext } from 'redux-react-hook';
 
 ReactDOM.render(
   <React.StrictMode>
-      <StoreContext.Provider store={store}>
+      <StoreContext.Provider value={store}>
           <App />
       </StoreContext.Provider>
   </React.StrictMode>,

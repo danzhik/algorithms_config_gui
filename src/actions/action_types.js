@@ -1,5 +1,5 @@
 
-export const ADD_FILE_TYPE = "ADD_FILE_TYPE";
+export const ADD_IMAGE_TYPE = "ADD_FILE_TYPE";
 
 export const ADD_ALGORITHM = "ADD_ALGORITHM";
 
