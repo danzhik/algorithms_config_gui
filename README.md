@@ -1,3 +1,8 @@
+##How to run
+
+In the project directory run ``npm install`` and after that run `npm start` command, which will start development
+server and open a tab with a running app in the browser.
+
 ## Available Scripts
 
 In the project directory, you can run:
