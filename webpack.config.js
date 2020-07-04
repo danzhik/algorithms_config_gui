@@ -37,5 +37,8 @@ module.exports = {
         filename: './index.html',
         favicon: './public/favicon.ico'
     })
-]
+    ],
+    devServer: {
+        port: 8081
+    }
 }
