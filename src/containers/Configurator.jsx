@@ -4,6 +4,7 @@ import imageTypes from "../image_types/index";
 import algorithms from "../algorithms";
 import "./Configurator.css";
 import {Button} from "react-bootstrap";
+import {ADD_ALGORITHM, ADD_IMAGE_TYPE, REMOVE_ALGORITHM, REMOVE_IMAGE_TYPE} from "../actions/action_types";
 
 const Configurator = () => {
 
@@ -16,17 +17,39 @@ const Configurator = () => {
 
     const { selectedImageTypes,  selectedAlgorithms} = useMappedState(mapState);
 
+    const dispatch = useDispatch();
+
+    const toggleImageSelection = useCallback(
+        (imageType) => {
+            if (selectedImageTypes.indexOf(imageType) === -1){
+                dispatch ({type: ADD_IMAGE_TYPE, payload: imageType})
+            } else {
+                dispatch ({type: REMOVE_IMAGE_TYPE, payload: imageType})
+            }
+        }, [dispatch]
+    );
+
+    const toggleAlgorithmSelection = useCallback(
+        (algorithm) => {
+            if (selectedAlgorithms.indexOf(algorithm) === -1){
+                dispatch ({type: ADD_ALGORITHM, payload: algorithm})
+            } else {
+                dispatch ({type: REMOVE_ALGORITHM, payload: algorithm})
+            }
+        }, [dispatch]
+    );
+
     const imageTypesSelector = imageTypes.map(imageType =>
         <div className="form-check d-inline-block m-4">
-            <input type={"checkbox"} className={"form-check-input"} id={`${imageType}_checkbox`}/>
-            <label className="form-check-label" htmlFor={`${imageType}_checkbox`}>{ imageType }</label>
+            <input type={"checkbox"} className={"form-check-input"} id={imageType} onClick={() => toggleImageSelection(imageType)} />
+            <label className="form-check-label" htmlFor={imageType}>{ imageType }</label>
         </div>
     );
 
-    const algorithmsSelector = Object.values(algorithms).map(algorithm =>
+    const algorithmsSelector = Object.entries(algorithms).map(([index, algorithm]) =>
         <div className="form-check d-inline-block m-4">
-            <input type={"checkbox"} className={"form-check-input"} id={`${algorithm.name}_checkbox`}/>
-            <label className="form-check-label" htmlFor={`${algorithm.name}_checkbox`}>{ algorithm.name }</label>
+            <input type={"checkbox"} className={"form-check-input"} id={`${index}_checkbox`} onClick={() => toggleAlgorithmSelection(algorithm)}/>
+            <label className="form-check-label" htmlFor={`${index}_checkbox`}>{ algorithm.name }</label>
         </div>
     );
 
