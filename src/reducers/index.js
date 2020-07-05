@@ -15,18 +15,21 @@ const initialState = {
 
 const appReducer = (state = initialState, action) => {
     if (action.type === ADD_IMAGE_TYPE){
-        const { selectedImageTypes } = state;
-        selectedImageTypes.push(action.payload);
+
         return {...state,
-            selectedImageTypes: selectedImageTypes
+            selectedImageTypes: [
+                ...state.selectedImageTypes,
+                action.payload
+            ]
         }
     }
 
     if (action.type === ADD_ALGORITHM){
-        const { selectedAlgorithms } = state;
-        selectedAlgorithms.push(action.payload);
         return {...state,
-            selectedAlgorithms: selectedAlgorithms
+            selectedAlgorithms: [
+                ...state.selectedAlgorithms,
+                action.payload
+            ]
         }
     }
 
@@ -48,7 +51,10 @@ const appReducer = (state = initialState, action) => {
 
     if (action.type === CREATE_CONFIGURATION){
         return {...state,
-            configuration: action.payload
+            configuration: {
+                images: state.selectedImageTypes,
+                algorithms: state.selectedAlgorithms
+            }
         }
     }
 

@@ -79,7 +79,8 @@ const Configurator = () => {
 
     const imageTypesSelector = imageTypes.map(imageType =>
         <div className="form-check d-inline-block m-4">
-            <input type={"checkbox"} className={"form-check-input"} id={imageType} onClick={() => toggleImageSelection(imageType)} />
+            <input type={"checkbox"} className={"form-check-input"} checked={selectedImageTypes.indexOf(imageType) !== -1}
+                   id={imageType} onChange={() => toggleImageSelection(imageType)} />
             <label className="form-check-label" htmlFor={imageType}>{ imageType }</label>
         </div>
     );
@@ -87,7 +88,7 @@ const Configurator = () => {
     const algorithmsSelector = Object.entries(algorithms).map(([index, algorithm]) =>
         <div className="form-check d-inline-block m-4">
             <input type={"checkbox"} className={"form-check-input"} checked={selectedAlgorithms.indexOf(algorithm) !== -1}
-                   id={`${index}_checkbox`} disabled={isAlgorithmDisabled(algorithm)} onClick={() => toggleAlgorithmSelection(algorithm)}/>
+                   id={`${index}_checkbox`} disabled={isAlgorithmDisabled(algorithm)} onChange={() => toggleAlgorithmSelection(algorithm)}/>
             <label className="form-check-label" htmlFor={`${index}_checkbox`}>{ algorithm.name }</label>
         </div>
     );
@@ -102,7 +103,6 @@ const Configurator = () => {
             <form className={"algorithms-form"}>
                 { algorithmsSelector }
             </form>
-            <Button> Generate configuration </Button>
         </div>
     );
 
