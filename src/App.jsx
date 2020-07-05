@@ -4,6 +4,7 @@ import Configurator from "./containers/Configurator";
 import {Button, Collapse} from "react-bootstrap";
 import {useDispatch, useMappedState} from "redux-react-hook";
 import {CREATE_CONFIGURATION, RESET_SELECTIONS_AND_CONFIGURATION} from "./actions/action_types";
+import ConfigurationDisplay from "./components/ConfigurationDisplay";
 
 const App = () => {
 
@@ -40,7 +41,9 @@ const App = () => {
 
             <Button className={"mr-3"} onClick={generateConfiguration}> Generate configuration </Button>
             <Button onClick={dropConfiguration}> Reset selections </Button>
-
+            <Collapse in={Object.keys(configuration).length} unmountOnExit>
+                <ConfigurationDisplay configuration={configuration}/>
+            </Collapse>
         </div>
     );
 };

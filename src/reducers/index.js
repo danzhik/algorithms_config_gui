@@ -25,6 +25,7 @@ const appReducer = (state = initialState, action) => {
     }
 
     if (action.type === ADD_ALGORITHM){
+
         return {...state,
             selectedAlgorithms: [
                 ...state.selectedAlgorithms,
@@ -34,6 +35,7 @@ const appReducer = (state = initialState, action) => {
     }
 
     if (action.type === REMOVE_IMAGE_TYPE){
+
         const { selectedImageTypes } = state;
         selectedImageTypes.splice(selectedImageTypes.indexOf( action.payload), 1);
         return {...state,
@@ -42,6 +44,7 @@ const appReducer = (state = initialState, action) => {
     }
 
     if (action.type === REMOVE_ALGORITHM){
+
         const { selectedAlgorithms } = state;
         selectedAlgorithms.splice(selectedAlgorithms.indexOf(action.payload), 1);
         return {...state,
@@ -50,6 +53,7 @@ const appReducer = (state = initialState, action) => {
     }
 
     if (action.type === CREATE_CONFIGURATION){
+
         return {...state,
             configuration: {
                 images: state.selectedImageTypes,
@@ -59,6 +63,7 @@ const appReducer = (state = initialState, action) => {
     }
 
     if (action.type === RESET_SELECTIONS_AND_CONFIGURATION){
+
         return initialState;
     }
 

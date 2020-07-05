@@ -3,7 +3,6 @@ import { useDispatch, useMappedState } from "redux-react-hook";
 import imageTypes from "../image_types/index";
 import algorithms from "../algorithms";
 import "./Configurator.css";
-import {Button} from "react-bootstrap";
 import {ADD_ALGORITHM, ADD_IMAGE_TYPE, REMOVE_ALGORITHM, REMOVE_IMAGE_TYPE} from "../actions/action_types";
 
 const Configurator = () => {
@@ -47,15 +46,25 @@ const Configurator = () => {
 
     const dispatch = useDispatch();
 
-    const toggleImageSelection = useCallback(
+    const removeImageType = useCallback(
         (imageType) => {
-            if (selectedImageTypes.indexOf(imageType) === -1){
-                dispatch ({type: ADD_IMAGE_TYPE, payload: imageType})
-            } else {
-                dispatch ({type: REMOVE_IMAGE_TYPE, payload: imageType})
-            }
+            dispatch ({type: REMOVE_IMAGE_TYPE, payload: imageType})
         }, [dispatch]
     );
+
+    const addImageType = useCallback(
+        (imageType) => {
+            dispatch ({type: ADD_IMAGE_TYPE, payload: imageType})
+        }, [dispatch]
+    );
+
+    const toggleImageSelection = imageType => {
+        if (selectedImageTypes.indexOf(imageType) === -1){
+            addImageType(imageType);
+        } else {
+            removeImageType(imageType);
+        }
+    };
 
     const removeAlgorithm = useCallback(
         (algorithm) => {

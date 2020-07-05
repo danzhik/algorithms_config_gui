@@ -14,10 +14,6 @@ Open [http://localhost:8081](http://localhost:8081) to view it in the browser.
 
 The page will reload if you make edits.<br />
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-
 ### `npm run build`
 
 Builds the app for production to the `build` folder using webpack bundle.<br />
@@ -30,5 +26,5 @@ The build is minified and uglified and the filenames include the hashes. <br />
 Builds the app for production to the `build` folder using webpack bundle.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The files are not minified nor uglified in order to make debugging possible on dev server. <br />
+The files are not minified and not uglified in order to make debugging possible on dev server. <br />
 
