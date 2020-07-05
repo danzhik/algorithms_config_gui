@@ -15,6 +15,34 @@ const Configurator = () => {
         }), []
     );
 
+    const isAlgorithmDisabled = (algorithm) => {
+
+        for (let requiredImageType of algorithm.requiredImages) {
+            if (selectedImageTypes.indexOf(requiredImageType) === -1) {
+                if (selectedAlgorithms.indexOf(algorithm) !== -1) {
+                    removeAlgorithm(algorithm);
+                }
+                return true;
+            }
+        }
+
+        if (!algorithm.requiredPreviousAlgorithms.length) {
+            return;
+        }
+
+        for (let requiredPreviousAlgorithm of algorithm.requiredPreviousAlgorithms) {
+            if (selectedAlgorithms.indexOf(algorithms[requiredPreviousAlgorithm]) === -1) {
+                if (selectedAlgorithms.indexOf(algorithm) !== -1) {
+                    removeAlgorithm(algorithm);
+                }
+                return true;
+            }
+            isAlgorithmDisabled(algorithms[requiredPreviousAlgorithm]);
+        }
+
+        return false;
+    }
+
     const { selectedImageTypes,  selectedAlgorithms} = useMappedState(mapState);
 
     const dispatch = useDispatch();
@@ -29,15 +57,25 @@ const Configurator = () => {
         }, [dispatch]
     );
 
-    const toggleAlgorithmSelection = useCallback(
+    const removeAlgorithm = useCallback(
         (algorithm) => {
-            if (selectedAlgorithms.indexOf(algorithm) === -1){
-                dispatch ({type: ADD_ALGORITHM, payload: algorithm})
-            } else {
-                dispatch ({type: REMOVE_ALGORITHM, payload: algorithm})
-            }
+            dispatch ({type: REMOVE_ALGORITHM, payload: algorithm})
         }, [dispatch]
     );
+
+    const addAlgorithm = useCallback(
+        (algorithm) => {
+            dispatch ({type: ADD_ALGORITHM, payload: algorithm})
+        }, [dispatch]
+    );
+
+    const toggleAlgorithmSelection = algorithm => {
+        if (selectedAlgorithms.indexOf(algorithm) === -1){
+            addAlgorithm(algorithm);
+        } else {
+            removeAlgorithm(algorithm);
+        }
+    };
 
     const imageTypesSelector = imageTypes.map(imageType =>
         <div className="form-check d-inline-block m-4">
@@ -48,7 +86,8 @@ const Configurator = () => {
 
     const algorithmsSelector = Object.entries(algorithms).map(([index, algorithm]) =>
         <div className="form-check d-inline-block m-4">
-            <input type={"checkbox"} className={"form-check-input"} id={`${index}_checkbox`} onClick={() => toggleAlgorithmSelection(algorithm)}/>
+            <input type={"checkbox"} className={"form-check-input"} checked={selectedAlgorithms.indexOf(algorithm) !== -1}
+                   id={`${index}_checkbox`} disabled={isAlgorithmDisabled(algorithm)} onClick={() => toggleAlgorithmSelection(algorithm)}/>
             <label className="form-check-label" htmlFor={`${index}_checkbox`}>{ algorithm.name }</label>
         </div>
     );
